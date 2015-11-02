@@ -1,0 +1,11 @@
+DSDecmp
+https://code.google.com/p/dsdecmp/
+Author: barubary
+
+NConvert
+http://www.xnview.com/de/nconvert/
+Author: XnSoft
+
+SMDHtool
+https://github.com/devkitPro/3dstools/blob/master/src/smdhtool.cpp
+Author: 3dstools
