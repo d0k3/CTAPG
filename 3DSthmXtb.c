@@ -123,8 +123,16 @@ int main( int argc, char** argv ) {
 	int offs;
 	
 	
+	// preparations
+	memset(img_top, 0xFF, 2 * 1024 * 256);
+	memset(img_bot, 0xFF, 2 * 1024 * 256);
+	wt = 512;
+	wtv = 412;
+	wb = 512;
+	wbv = 320;
+	
 	// say hello
-	fprintf( stderr, "3DS Custom Theme Preview Extractor by d0k3 v0.2\nworking..." );
+	fprintf( stderr, "3DS Custom Theme Preview Extractor by d0k3 v0.2\nworking...\n" );
 	// check input, open file
 	if ( argc != 2 ) err_exit( "too many / little arguments" );
 	fp = fopen( argv[ 1 ], "rb" );
@@ -135,31 +143,33 @@ int main( int argc, char** argv ) {
 	
 	
 	// process upper background
-	if ( thm_hdr[ 0x0C ] != 0x03 ) err_exit( "top background has no texture" );
-	switch ( thm_hdr[ 0x10 ] ) {
-		case 0x0:
-		case 0x3: wt = 1024; wtv = 1008; break; // texture1
-		case 0x1: wt =  512; wtv =  412; break; // texture0
-		default: err_exit( "top background invalid texture format" );
-	}
-	RD_BE( offs, thm_hdr + 0x18, 4 );
-	fseek( fp, offs, SEEK_SET );
-	read_trbg565( fp, img_top, wt, HBG );
+	if ( thm_hdr[ 0x0C ] == 0x03 ) {
+		switch ( thm_hdr[ 0x10 ] ) {
+			case 0x0:
+			case 0x3: wt = 1024; wtv = 1008; break; // texture1
+			case 0x1: wt =  512; wtv =  412; break; // texture0
+			default: err_exit( "top background invalid texture format" );
+		}
+		RD_BE( offs, thm_hdr + 0x18, 4 );
+		fseek( fp, offs, SEEK_SET );
+		read_trbg565( fp, img_top, wt, HBG );
+	} else fprintf( stderr, "WARNING: top background has no texture\n" );
 	
 	
 	// process lower background
-	if ( thm_hdr[ 0x20 ] != 0x03 ) err_exit( "bottom background has no texture" );
-	switch ( thm_hdr[ 0x24 ] ) {
-		case 0x0: 
-		case 0x3: wb = 1024; wbv = 1008; break; // texture4
-		case 0x2:
-		case 0x4: wb = 1024; wbv =  960; break; // texture3
-		case 0x1: wb =  512; wbv =  320; break; // texture2
-		default: err_exit( "bottom background invalid texture format" );
-	}
-	RD_BE( offs, thm_hdr + 0x28, 4 );
-	fseek( fp, offs, SEEK_SET );
-	read_trbg565( fp, img_bot, wb, HBG );
+	if ( thm_hdr[ 0x20 ] == 0x03 ) {
+		switch ( thm_hdr[ 0x24 ] ) {
+			case 0x0: 
+			case 0x3: wb = 1024; wbv = 1008; break; // texture4
+			case 0x2:
+			case 0x4: wb = 1024; wbv =  960; break; // texture3
+			case 0x1: wb =  512; wbv =  320; break; // texture2
+			default: err_exit( "bottom background invalid texture format" );
+		}
+		RD_BE( offs, thm_hdr + 0x28, 4 );
+		fseek( fp, offs, SEEK_SET );
+		read_trbg565( fp, img_bot, wb, HBG );
+	} else fprintf( stderr, "WARNING: bottom background has no texture\n" );
 		
 	// all done, close theme file
 	fclose( fp );
