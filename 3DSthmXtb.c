@@ -132,7 +132,7 @@ int main( int argc, char** argv ) {
 	wbv = 320;
 	
 	// say hello
-	fprintf( stderr, "3DS Custom Theme Preview Extractor by d0k3 v0.2\nworking...\n" );
+	fprintf( stderr, "3DS Custom Theme Preview Extractor by d0k3 v0.3\nworking...\n" );
 	// check input, open file
 	if ( argc != 2 ) err_exit( "too many / little arguments" );
 	fp = fopen( argv[ 1 ], "rb" );
