@@ -4,7 +4,7 @@ This Windows batch file will automagically generate previews for custom 3DS them
 
 Included is a small programm that I wrote myself (3DSthmXtb, source code included), DSdecmp (by barubary), NConvert (by XnSoftware team), smdhtool (by 3dstools) and batch files to make usage as easy as possible.
 
-This will work on Windows 7/8/8.1 only! Also, it will not process 'solid color themes', however noone makes these, anyways. If you want to discuss this, use the official discussion thread: https://gbatemp.net/threads/release-custom-theme-auto-preview-generator.387711/
+This will not work on Windows versions below Windows 7! Also, it will not process 'solid color themes', however noone makes these, anyways. If you want to discuss this, use the official discussion thread: https://gbatemp.net/threads/release-custom-theme-auto-preview-generator.387711/
 
 
 
@@ -18,3 +18,8 @@ This will work on Windows 7/8/8.1 only! Also, it will not process 'solid color t
 **Bonus Folder**
 
 The scripts in the bonus folder require manual work and are intended for use with extracted CIA theme packs. Put the contents of IconConv and TextExtr into the root folder of the decrypted & extracted CIA content 0. You may then use the respective scripts to convert the included theme icons and / or extract the theme descriptions. The alternative process.bat file included will use a icon.png you provide (inside the theme's folders) instead of generating one anew.
+
+
+**Credits**
+
+Thanks goes to @TimmSkiller for the sole issue this Github repo had and for helping ín fixing it. Custom Theme Auto Preview Generator now also supports themes with missing top/bottom textures.
